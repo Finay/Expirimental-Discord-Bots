@@ -1,0 +1,81 @@
+Bunch of code for different discord stuff!
+________________________________________________________________________________________________________________________
+Command to kick whoever runs command
+
+@client.command()
+async def cool(ctx):
+    writer = ctx.message.author
+    await writer.kick(reason=None)
+________________________________________________________________________________________________________________________
+Command to create text channel (Param is name of channel you want to create)
+
+@client.command()
+async def new(ctx, name):
+    guild = ctx.message.guild
+    await guild.create_text_channel(name)
+________________________________________________________________________________________________________________________
+Script to give user a role (Make sure to import discord)
+
+@client.event
+async def on_ready():
+    guild = client.get_guild(guildidhere)
+    member = guild.get_member(useridhere)
+    rolename = 'rolenamehere'
+    role = discord.utils.get(guild.roles, name=rolename)
+    await member.add_roles(role)
+________________________________________________________________________________________________________________________
+Script to create a new role in a guild
+
+@client.event
+async def on_ready():
+    guild = client.get_guild(guildidhere)
+    perms = Permissions
+    name = nameofrole
+    await guild.create_role(name=name, permissions=perms)
+________________________________________________________________________________________________________________________
+Script to kick members the second they join
+
+@client.event
+async def on_member_join(member):
+    await member.kick(reason=None)
+________________________________________________________________________________________________________________________
+Command to create a new chat
+
+@client.command()
+async def create_chat(ctx, name):
+    channel = ctx.channel
+    await ctx.message.author.guild.create_text_channel(name)
+    print('Created channel ' + name + ' in ' + channel.name + " of " + channel.guild.name)
+________________________________________________________________________________________________________________________
+Command to delete current chat
+
+@client.command()
+async def delete_chat(ctx):
+    channel = ctx.channel
+    await ctx.message.channel.delete()
+    print('Deleted channel ' + channel.name + " of " + channel.guild.name)
+________________________________________________________________________________________________________________________
+Script to print boot message
+
+@client.event
+async def on_ready():
+    print('READY!')
+________________________________________________________________________________________________________________________
+Script to change nickname (for the nickname use none to remove all nicknames)
+
+@client.event
+async def on_ready():
+    guild = client.get_guild(guildidhere)
+    nickname = 'nicknamehere'
+    await guild.get_member(memberidhere).edit(nick=nickname)
+________________________________________________________________________________________________________________________
+Script to print what members are doing
+
+@client.event
+async def on_member_update(before, after):
+    if len(after.activities) > 0:
+        if not after.nick == None:
+            print(after.nick + " is playing " + after.activities[0].name)
+        else:
+            print(after.name + " is playing " + after.activities[0].name)
+________________________________________________________________________________________________________________________
